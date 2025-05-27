@@ -43,7 +43,7 @@ Route::prefix('assignments')->group(function () {
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 
 // Route::get('/profile', function () {
