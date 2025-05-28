@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -17,6 +18,9 @@ Route::post('signup', [RegisterController::class, 'register'])->name('signuppost
 Route::get('/adddevice', [DeviceController::class, 'create'])->name('device.create');
 Route::post('/adddevice', [DeviceController::class, 'store'])->name('device.store');
 
+Route::get('/users', [UserController::class, 'index'])->name('user.view');
+Route::get('/adduser', [UserController::class, 'addview'])->name('user.adduser');
+Route::post('/adduser', [UserController::class, 'create'])->name('user.create');
 
  Route::get('/devicelist', [InventoryController::class, 'index'])->name('devices.index');
  Route::post('/devicelist', [InventoryController::class, 'store'])->name('devices.store');

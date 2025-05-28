@@ -7,7 +7,11 @@
     <title>@yield('title', 'My Laravel App')</title>
     <!-- CSS -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.jpg">
+    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
 
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href=" {{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href=" {{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" href=" {{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
@@ -37,6 +41,14 @@
     </div>
     <!-- Scripts -->
     @stack('scripts') <!-- For page-specific JS -->
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="assets/js/feather.min.js"></script>
+
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+
+    <script src="assets/plugins/select2/js/select2.min.js"></script>
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -48,6 +60,8 @@
     <script src="assets/js/dataTables.bootstrap4.min.js"></script>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
     <script src="assets/plugins/apexchart/chart-data.js"></script>
@@ -56,7 +70,7 @@
     <script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
 
     <script src="assets/js/script.js"></script>
-     
+
     <script>
         $(document).ready(function() {
             // Barcode generation functionality
