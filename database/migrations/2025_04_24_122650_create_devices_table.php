@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('device_name');
         $table->string('category');
-        $table->string('serial_number');
+        $table->string('serial_number')->after('category');
         $table->integer('quantity');
         $table->date('purchase_date');
         $table->enum('status', ['active', 'inactive']);
@@ -31,4 +31,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('devices');
     }
+
+
 };

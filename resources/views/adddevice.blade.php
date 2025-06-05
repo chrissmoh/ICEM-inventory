@@ -56,7 +56,7 @@
                                     <svg id="barcode-preview" style="display: none;"></svg>
                                 </div> --}}
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-secondary" onclick="startScanner()">Scan with Camera</button>
+                                    <button type="button" class="btn btn-secondary" onclick="startScanner()">Scan Barcode</button>
                                     <div id="reader" style="width: 300px; margin-top: 15px;"></div>
                                 </div>
                             </div>
@@ -122,49 +122,52 @@
     </div>
 
     {{-- BARCODE SCANNING --}}
-
-    {{-- for phone --}}
-
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <script>
-        function startScanner() {
-         const html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start(
-             { facingMode: "environment" },
-             { fps: 10, qrbox: 250 },
-             (decodedText, decodedResult) => {
-                document.getElementById("barcode").value = decodedText;
-                html5QrCode.stop();
-                document.getElementById("reader").innerHTML = '';
-              },
-             (errorMessage) => {
-                console.warn(errorMessage);
-             }
-            ).catch((err) => {
-            console.error("Camera start error:", err);
+  {{-- Include html5-qrcode only once --}}
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script>
+    let html5QrCode; // Declare globally so we can stop it
+
+    function startScanner() {
+        const readerElement = document.getElementById("reader");
+
+        // Stop previous scanner if it exists
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                readerElement.innerHTML = "";
+            }).catch(err => {
+                console.warn("Error stopping previous scanner:", err);
             });
         }
-    </script>
 
-    {{-- FOR PC --}}
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script>
-        function startScanner() {
-            const html5QrCode = new Html5Qrcode("reader");
+        html5QrCode = new Html5Qrcode("reader");
 
-            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-                // Put the scanned text into the input
-                document.getElementById("barcode").value = decodedText;
-                html5QrCode.stop();
-                document.getElementById("reader").innerHTML = ''; // clear camera
-            };
+        const config = { fps: 10, qrbox: 250 };
 
-            const config = { fps: 10, qrbox: 250 };
+        html5QrCode.start(
+            { facingMode: "environment" }, // Back camera
+            config,
+            (decodedText, decodedResult) => {
+                document.getElementById("serial_number").value = decodedText;
 
-            html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
-                .catch(err => {
-                    console.error("Camera start error:", err);
+                html5QrCode.stop().then(() => {
+                    readerElement.innerHTML = "";
+                }).catch(err => {
+                    console.error("Stop error:", err);
                 });
-        }
-    </script>
+            },
+            (errorMessage) => {
+                // Log scanning errors (optional: show to user)
+                console.warn("QR Scan error:", errorMessage);
+            }
+        ).catch(err => {
+            console.error("Camera start error:", err);
+            alert("Unable to access camera. Please check browser permissions and HTTPS.");
+        });
+    }
+</script>
+
+
+
 @endsection

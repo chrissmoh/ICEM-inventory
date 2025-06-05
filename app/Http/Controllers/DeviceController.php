@@ -13,6 +13,15 @@ class DeviceController extends Controller
     }
     public function store(Request $request)
     {
+
+        $device = new Device();
+        $device->device_name = $request->device_name;
+        $device->category = $request->category;
+        $device->serial_number = $request->serial_number; // important
+        // ... rest of the fields
+        $device->save();
+
+        
         // Validate the incoming request data
         $request->validate([
             'device_name'     => 'required|string|max:255',
